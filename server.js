@@ -24,11 +24,33 @@ app.get('/api/quotes', (req, res, next) => {
     const quote = {
         quotes: quotes
     }
-    
+
     if (quote) {
         res.send(quote);
     } else {
         res.status(404).send("Error: Quote database missing");
+    }
+})
+
+app.post('/api/quotes', (req, res, next) => {
+    const quote = req.query.quote;
+    const person = req.query.person;
+    
+    const newQuote = {
+        quote: {
+            quote: quote,
+            person: person
+        }
+    }
+
+    if(quote && person){
+        quotes.push({
+            quote: quote,
+            person: person
+        })
+        res.status(202).send(newQuote);
+    } else {
+        res.status(400).send();
     }
 })
 
